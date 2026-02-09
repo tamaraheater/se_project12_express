@@ -1,0 +1,83 @@
+# V2.0.0
+
+run-name: "Tests for project 12 and 13: ${{ github.event.head_commit.message }}"
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  get_sprint_number:
+    if: ${{ github.repository != 'tripleten-com/se_project_express' }}
+    runs-on: ubuntu-latest
+    outputs:
+      sprint: ${{ steps.sprint.outputs.SPRINT_NUMBER }}
+      base_sprint: ${{ steps.sprint.outputs.BASE_SPRINT }}
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Add sprint number to output
+        id: sprint
+        run: bash ./.github/bin/get-sprint.sh
+      - name: Print repo name
+        run: |
+          echo "Repository name: ${{ github.repository }}"
+          echo "Repository owner: ${{ github.repository_owner }}"
+
+  test_endpoints:
+    if: ${{ github.repository != 'tripleten-com/se_project_express' }}
+    runs-on: ubuntu-latest
+    needs: get_sprint_number
+    steps:
+      - name: Set up GitHub Actions
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Get testing lib
+        id: testing-lib
+        run: set -eu && git clone --depth 1 https://github.com/tripleten-com/se-actions-tests-p.git
+
+      - name: Installing Dependencies
+        run: npm ci --loglevel=error --no-fund --no-audit --ignore-scripts --no-progress
+
+      - name: Run test config
+        working-directory: se-actions-tests-p
+        run: bash ./bin/test-config.sh
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.6.0
+        with:
+          mongodb-version: "4.4"
+
+      - name: Run Pre endpoints for 12
+        if: ${{ needs.get_sprint_number.outputs.base_sprint == 12 }}
+        working-directory: se-actions-tests-p
+        run: bash ./bin/pre-endpoints.sh
+
+      - name: Installing wait-port
+        run: npm install -g wait-port
+
+      - name: Run server
+        run: npm run start & wait-port -t 30000 localhost:3001
+
+      - name: Run test endpoints for 12
+        if: ${{ needs.get_sprint_number.outputs.sprint == '12' }}
+        working-directory: se-actions-tests-p
+        run: bash ./bin/test-endpoints-12.sh
+
+      - name: Run test endpoints for 12-ft
+        if: ${{ needs.get_sprint_number.outputs.sprint == '12-ft' }}
+        working-directory: se-actions-tests-p
+        run: bash ./bin/test-endpoints-12-ft.sh
+
+      - name: Run test endpoints for 13
+        if: ${{ needs.get_sprint_number.outputs.sprint == '13' }}
+        working-directory: se-actions-tests-p
+        run: bash ./bin/test-endpoints-13.sh
