@@ -1,0 +1,22 @@
+{
+  "name": "se_project12_express",
+  "version": "0.1.0",
+  "description": "Back-End Project for WTWR uning Express and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamaraheater/se_project12_express.git"
+  },
+  "author": "Tamara Heater",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tamaraheater/se_project12_express/issues"
+  },
+  "homepage": "https://github.com/tamaraheater/se_project12_express#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
