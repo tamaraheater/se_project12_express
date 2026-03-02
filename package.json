@@ -4,7 +4,7 @@
   "description": "Back-End Project for WTWR uning Express and MongoDB",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx eslint ."
   },
   "repository": {
     "type": "git",
