@@ -4,7 +4,8 @@
   "description": "Back-End Project for WTWR uning Express and MongoDB",
   "main": "app.js",
   "scripts": {
-    "lint": "npx eslint ."
+    "lint": "npx eslint .",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
