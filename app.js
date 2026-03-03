@@ -2,4 +2,8 @@ const express = require("express");
 
 const app = express();
 
-app.listen(3001, () => {});
+const { PORT = 3001 } = process.env;
+
+app.listen(PORT, () => {
+  console.log("listening on port ${PORT}");
+});
