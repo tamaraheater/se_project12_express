@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose")
+const indexRouter = require("./routes/index.js")
 
 const app = express();
 
@@ -12,9 +13,7 @@ mongoose
   })
   .catch(console.error);
 
-app.get("/", (req, res) => {
-  res.json({ message: "Hello! Server is alive 🚀" });
-});
+app.use("/", indexRouter)
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
