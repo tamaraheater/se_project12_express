@@ -10,8 +10,11 @@ mongoose
   .connect('mongodb://127.0.0.1:27017/wtwr_db')
   .then(() => {
     console.log("Connected to DB");
-  })
-  .catch(console.error);
+  });
+
+  app.get("/", (req, res) => {
+  res.json({ message: "Hello! Server is alive" });
+});
 
 app.use(express.json());
 app.use("/", indexRouter);
