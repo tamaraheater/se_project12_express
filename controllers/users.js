@@ -2,7 +2,6 @@ const User = require("../models/user");
 
 const getUsers = (req, res) => {
   User.find({})
-    .orFail()
     .then((users) => res.status(200).send(users))
     .catch((err) => {
       console.error(err);
@@ -13,7 +12,6 @@ const getUsers = (req, res) => {
 const createUser = (req, res) => {
   const { name, avatar } = req.body;
   User.create({ name, avatar })
-    .orFail()
     .then((user) => res.status(201).send(user))
     .catch((err) => {
       console.error(err)
@@ -31,7 +29,7 @@ const getUser = (req, res) => {
     .orFail()
     .then((user) => res.status(200).send(user))
     .catch((err) => {
-      console.error(err)
+      console.log(err.name)
       if (err.name === "DocumentNotFound") {
         return res.status(400).send({ message: err.message });
       }
