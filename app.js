@@ -30,5 +30,5 @@ app.use("/", indexRouter);
 
 app.listen(PORT, () => {
   /* eslint-disable no-console */
-  console.log(`Unable to listen on port ${PORT}`);
+  console.log(`Listening on port ${PORT}`);
 });
