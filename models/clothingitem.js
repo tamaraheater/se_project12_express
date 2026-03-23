@@ -16,7 +16,7 @@ const clothingItemSchema = new mongoose.Schema({
   },
   imageUrl: {
     type: String,
-    required: { true: "The image field is required" },
+    required: [true, "The image field is required"],
     validate: {
       validator(value) {
         return validator.isURL(value);
@@ -26,7 +26,7 @@ const clothingItemSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: user,
+    ref: "user",
     required: true,
   },
   createdAt: {
@@ -34,7 +34,7 @@ const clothingItemSchema = new mongoose.Schema({
     default: Date.now,
   },
   likes: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: user }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
     default: [],
   },
 });

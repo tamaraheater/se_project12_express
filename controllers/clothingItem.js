@@ -26,7 +26,7 @@ const createItem = (req, res) => {
 };
 
 const getItems = (req, res) => {
-  ClothingItem.find({ owner: req.user._id })
+  ClothingItem.find({})
     .sort({ createdAt: -1 })
     .then((items) => res.send({ data: items }))
     .catch((err) => {
@@ -126,21 +126,7 @@ const dislikeItem = (req, res) => {
     });
 };
 
-const updateItem = (req, res) => {
-  const { itemId } = req.params;
-  const { imageUrl } = req.body;
 
-  ClothingItem.findById(itemId, { $set: { imageUrl } })
-    .orFail(() => new Error("Item not found"))
-    .then((item) => res.status(200).send({ data: item }))
-    .catch((err) => {
-      console.error(err);
-
-      return res
-        .status(SERVER_ERROR)
-        .send({ message: "An error occurred on the server." });
-    });
-};
 
 module.exports = {
   createItem,
@@ -148,5 +134,4 @@ module.exports = {
   deleteItem,
   likeItem,
   dislikeItem,
-  updateItem,
 };

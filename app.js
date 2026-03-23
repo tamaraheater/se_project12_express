@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 
 const indexRouter = require("./routes/index");
 
-
 const { PORT = 3001 } = process.env;
 const app = express();
 
@@ -29,6 +28,5 @@ app.use((req, res, next) => {
 app.use("/", indexRouter);
 
 app.listen(PORT, () => {
-  /* eslint-disable no-console */
   console.log(`Listening on port ${PORT}`);
 });
