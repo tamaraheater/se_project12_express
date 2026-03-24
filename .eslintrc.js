@@ -16,11 +16,13 @@ module.exports = {
 
   parserOptions: {
     ecmaVersion: "latest",
-    sourceType: "module",
+    sourceType: "script",
   },
 
   rules: {
     "no-console": ["warn", { allow: ["error"] }],
     "no-underscore-dangle": ["error", { allow: ["_id"] }],
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
   },
 };
