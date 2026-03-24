@@ -5,7 +5,7 @@ The back-end project is focused on creating a server for the WTWR application. Y
 A perfect description is “This is a backend API — a little request-handling machine.
 When someone makes a request, it travels through routes (which decide where it should go), then the controllers do the actual work using the models (which talk to the database), and finally it sends back the response.”
 
-When in the midst of the building process, it does not "feel" that one is accomplishing this, but once complete the delivery system is in place.
+When in the midst of the building process, it does not "feel" that one is accomplishing this, until, once complete, the delivery system is in place.
 
 Features:
 
