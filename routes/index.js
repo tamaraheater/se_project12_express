@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const clothingItem = require("./clothingItem");
 
-const userRouter = require("./users");
+const clothingItemsRouter = require("./clothingItems");
+const usersRouter = require("./users");
 
-router.use("/users", userRouter);
-router.use("/items", clothingItem);
+router.use("/users", usersRouter);
+router.use("/items", clothingItemsRouter);
 
 router.use((req, res) => {
   res.status(404).send({ message: "Router not found" });
