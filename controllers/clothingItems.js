@@ -21,7 +21,7 @@ const createItem = (req, res) => {
       }
       return res
         .status(SERVER_ERROR)
-        .send({ message: "An error occurred on the server." });
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -33,7 +33,7 @@ const getItems = (req, res) => {
       console.error(err);
       res
         .status(SERVER_ERROR)
-        .send({ message: "An error occurred on the server." });
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -72,7 +72,7 @@ const deleteItem = (req, res) => {
 
       return res
         .status(SERVER_ERROR)
-        .send({ message: "An error occurred on the server." });
+        .send({ message: "An error has occurred on the server." });
     });
 };
 

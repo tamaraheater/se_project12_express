@@ -17,7 +17,7 @@ Features:
 - MongoDB schema with validation rules (name, weather, imageUrl, owner, likes)
 - Secure ownership checks on delete operations
 
-Technologies Used
+## Technologies Used
 
 - **Node.js** + **NPM**
 - **Express.js** - Web framework
@@ -32,10 +32,13 @@ From the terminal:
 
 `npm run dev` — to launch the server with the hot reload feature
 
+`npx eslint .` — for code error corrections
+
+
 ### Testing
 
 Postman was used to test all functions for proper user communication of errors.
-This is sprint 12 as docukemted in the "sprint.tx" file.
+This is sprint 12 as docukemted in the "sprint.tx" file. GitHub was used to test all file endpoints.
 
 Future Improvements
 --User authentication & authorization

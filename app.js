@@ -14,10 +14,6 @@ mongoose
     console.error("DB connection error", err);
   });
 
-app.get("/", (req, res) => {
-  res.json({ message: "Hello! Server is alive" });
-});
-
 app.use(express.json());
 app.use((req, res, next) => {
   req.user = {
