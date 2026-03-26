@@ -28,12 +28,12 @@ Features:
 ## Running the Project
 
 From the terminal:
-`npm run start` — to launch the server
 
-`npm run dev` — to launch the server with the hot reload feature
+-Use `npm run start` — to launch the server
 
-`npx eslint .` — for code error corrections
+-Use `npm run dev` — to launch the server with the hot reload feature
 
+-Use `npx eslint .` — for code error corrections
 
 ### Testing
 
