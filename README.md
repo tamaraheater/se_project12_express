@@ -27,7 +27,7 @@ Features:
 
 ## Running the Project
 
--From the terminal:
+From the terminal:
 
 -Use `npm run start` — to launch the server
 
