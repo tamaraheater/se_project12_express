@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -34,26 +35,22 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "The password field is required."],
-    minlength: 8,                    // Recommended minimum
-    select: false,                   // ← Never return password by default
+    minlength: 8,
+    select: false,
   },
- },
- );
+});
 
- // Hash password before saving (pre-save middleware)
-//userSchema.pre('save', async function(next) {
- // if (!this.isModified('password')) return next();
+// Hash password before saving
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
 
- // try {
- //   const salt = await bcrypt.genSalt(10);
- //   this.password = await bcrypt.hash(this.password, salt);
- //   next();
- // } catch (error) {
- //   next(error);
- // }
-//});
-//
-
-
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = mongoose.model("user", userSchema);
