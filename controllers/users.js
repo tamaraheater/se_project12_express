@@ -1,5 +1,10 @@
 const User = require("../models/user");
-const { NOT_FOUND, BAD_REQUEST, SERVER_ERROR } = require("../utils/errors");
+const {
+  NOT_FOUND,
+  BAD_REQUEST,
+  CONFLICT,
+  SERVER_ERROR
+} = require("../utils/errors");
 
 const getUsers = (req, res) => {
   User.find({})
@@ -13,12 +18,27 @@ const getUsers = (req, res) => {
 };
 
 const createUser = (req, res) => {
-  const { name, avatar } = req.body;
+  const { name, avatar, email, password } = req.body;
 
-  User.create({ name, avatar })
-    .then((user) => res.status(201).send(user))
+  User.create({ name, avatar, email, password })
+    .then((user) => {
+
+      const userWithoutPassword = {
+        _id: user._id,
+        name: user.name,
+        avatar: user.avatar,
+        email: user.email,
+      };
+      res.status(201).send(userWithoutPassword);
+    })
     .catch((err) => {
       console.error(err);
+
+      if (err.code === 11000) {
+        return res
+          .status(CONFLICT)
+          .send({ message: "A user with this email already exists" });
+      }
 
       if (err.name === "ValidationError") {
         return res
