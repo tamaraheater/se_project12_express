@@ -1,27 +1,26 @@
 const express = require("express");
-
 const mongoose = require("mongoose");
 
-const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const { createUser } = require("./controllers/users");
 
 const { PORT = 3001 } = process.env;
+
 const app = express();
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/wtwr_db")
-  .then(() => {})
-  .catch((err) => {
-    console.error("DB connection error", err);
-  });
+  .then(() => console.log("DB connected"))
+  .catch((err) => console.error("DB connection error", err));
 
 app.use(express.json());
-app.use((req, res, next) => {
-  req.user = {
-    _id: "69bd65d23b0638e78d9bb614",
-  };
-  next();
-});
-app.use("/", indexRouter);
+
+// ====================== AUTH ROUTES ======================
+app.post("/signup", createUser);
+// app.post("/signin", login);     // we'll add this later
+
+// ====================== USER ROUTES ======================
+app.use("/users", usersRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
