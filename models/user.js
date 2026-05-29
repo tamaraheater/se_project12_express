@@ -40,8 +40,8 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Password hashing
-userSchema.pre("save", async function (next) {
+// Password hashing middleware
+userSchema.pre("save", async function passwordHashing(next) {
   if (!this.isModified("password")) {
     return next();
   }
@@ -49,13 +49,16 @@ userSchema.pre("save", async function (next) {
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-    next();
+    return next();
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
-userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(
+  email,
+  password
+) {
   return this.findOne({ email })
     .select("+password")
     .then((user) => {
@@ -73,4 +76,3 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
 };
 
 module.exports = mongoose.model("user", userSchema);
-

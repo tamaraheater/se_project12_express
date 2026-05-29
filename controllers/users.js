@@ -7,7 +7,7 @@ const {
   CONFLICT,
   SERVER_ERROR,
   UNAUTHORIZED,
-  NOT_FOUND
+  NOT_FOUND,
 } = require("../utils/errors");
 
 const getUsers = (req, res) => {
@@ -15,7 +15,9 @@ const getUsers = (req, res) => {
     .then((users) => res.send(users))
     .catch((err) => {
       console.error(err);
-      res.status(SERVER_ERROR).send({ message: "An error has occurred on the server." });
+      res
+        .status(SERVER_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -36,14 +38,20 @@ const createUser = (req, res) => {
       console.error(err);
 
       if (err.code === 11000) {
-        return res.status(CONFLICT).send({ message: "A user with this email already exists" });
+        return res
+          .status(CONFLICT)
+          .send({ message: "A user with this email already exists" });
       }
 
       if (err.name === "ValidationError") {
-        return res.status(BAD_REQUEST).send({ message: "Invalid data provided" });
+        return res
+          .status(BAD_REQUEST)
+          .send({ message: "Invalid data provided" });
       }
 
-      return res.status(SERVER_ERROR).send({ message: "An error has occurred on the server." });
+      return res
+        .status(SERVER_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -51,16 +59,16 @@ const login = (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(BAD_REQUEST).send({ message: "Email and password are required" });
+    return res
+      .status(BAD_REQUEST)
+      .send({ message: "Email and password are required" });
   }
 
-  return User.findUserByCredentials(email, password)   
+  return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign(
-        { _id: user._id },
-        JWT_SECRET,
-        { expiresIn: "7d" }
-      );
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
+        expiresIn: "7d",
+      });
       res.send({ token });
     })
     .catch((err) => {
@@ -78,7 +86,9 @@ const getCurrentUser = (req, res) => {
       if (err.name === "CastError" || err.name === "DocumentNotFoundError") {
         return res.status(NOT_FOUND).send({ message: "User not found" });
       }
-      return res.status(SERVER_ERROR).send({ message: "An error has occurred on the server." });
+      return res
+        .status(SERVER_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -96,12 +106,16 @@ const updateProfile = (req, res) => {
       console.error(err);
 
       if (err.name === "ValidationError") {
-        return res.status(BAD_REQUEST).send({ message: "Invalid data provided for update" });
+        return res
+          .status(BAD_REQUEST)
+          .send({ message: "Invalid data provided for update" });
       }
       if (err.name === "DocumentNotFoundError") {
         return res.status(NOT_FOUND).send({ message: "User not found" });
       }
-      return res.status(SERVER_ERROR).send({ message: "An error has occurred on the server." });
+      return res
+        .status(SERVER_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -110,5 +124,5 @@ module.exports = {
   createUser,
   login,
   getCurrentUser,
-  updateProfile
+  updateProfile,
 };
