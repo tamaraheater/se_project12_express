@@ -1,9 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
-const usersRouter = require("./routes/users");
-const { createUser, login } = require("./controllers/users");
-const auth = require("./middlewares/auth");
+const indexRouter = require("./routes/index");
 
 const { PORT = 3001 } = process.env;
 
@@ -15,13 +14,9 @@ mongoose
   .catch((err) => console.error("DB connection error", err));
 
 app.use(express.json());
+app.use(cors());
 
-// ====================== PUBLIC ROUTES ======================
-app.post("/signup", createUser);
-app.post("/signin", login);
-
-// ====================== PROTECTED ROUTES ======================
-app.use("/users", auth, usersRouter);
+app.use("/", indexRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
