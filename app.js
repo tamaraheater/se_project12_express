@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const usersRouter = require("./routes/users");
-const { createUser } = require("./controllers/users");
+const { createUser, login } = require("./controllers/users"); // ← Fixed import
+const auth = require("./middlewares/auth");
 
 const { PORT = 3001 } = process.env;
 
@@ -15,12 +16,12 @@ mongoose
 
 app.use(express.json());
 
-// ====================== AUTH ROUTES ======================
+// ====================== PUBLIC ROUTES ======================
 app.post("/signup", createUser);
-// app.post("/signin", login);     // we'll add this later
+app.post("/signin", login); // ← Now it should work
 
-// ====================== USER ROUTES ======================
-app.use("/users", usersRouter);
+// ====================== PROTECTED ROUTES ======================
+app.use("/users", auth, usersRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
