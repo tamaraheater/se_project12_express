@@ -40,8 +40,11 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// Password hashing
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+  if (!this.isModified("password")) {
+    return next();
+  }
 
   try {
     const salt = await bcrypt.genSalt(10);
@@ -52,7 +55,7 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-userSchema.statics.findUserByCredentials = function (email, password) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
   return this.findOne({ email })
     .select("+password")
     .then((user) => {
