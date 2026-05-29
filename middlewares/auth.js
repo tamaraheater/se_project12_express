@@ -15,7 +15,7 @@ const auth = (req, res, next) => {
 
   try {
     const payload = jwt.verify(token, JWT_SECRET);
-    req.user = payload;        // This is what we need for /users/me
+    req.user = payload;        
     next();
   } catch (err) {
     console.error(err);

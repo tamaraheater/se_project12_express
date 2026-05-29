@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const usersRouter = require("./routes/users");
-const { createUser, login } = require("./controllers/users"); // ← Fixed import
+const { createUser, login } = require("./controllers/users");
 const auth = require("./middlewares/auth");
 
 const { PORT = 3001 } = process.env;
@@ -18,7 +18,7 @@ app.use(express.json());
 
 // ====================== PUBLIC ROUTES ======================
 app.post("/signup", createUser);
-app.post("/signin", login); // ← Now it should work
+app.post("/signin", login);
 
 // ====================== PROTECTED ROUTES ======================
 app.use("/users", auth, usersRouter);
