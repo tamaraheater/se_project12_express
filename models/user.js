@@ -41,8 +41,7 @@ const userSchema = new mongoose.Schema({
 });
 
 // Password hashing middleware
-// eslint-disable-next-line consistent-return
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function passwordHashing(next) {
   if (!this.isModified("password")) {
     return next();
   }
