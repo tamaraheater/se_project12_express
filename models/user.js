@@ -46,11 +46,15 @@ userSchema.pre("save", function (next) {
     return next();
   }
 
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) return next(err);
+  bcrypt.genSalt(10, (saltError, salt) => {
+    if (saltError) {
+      return next(saltError);
+    }
 
-    bcrypt.hash(this.password, salt, (err, hash) => {
-      if (err) return next(err);
+    bcrypt.hash(this.password, salt, (hashError, hash) => {
+      if (hashError) {
+        return next(hashError);
+      }
       this.password = hash;
       return next();
     });
