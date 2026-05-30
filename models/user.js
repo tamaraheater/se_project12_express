@@ -46,17 +46,21 @@ userSchema.pre("save", function (next) {
     return next();
   }
 
-  bcrypt
-    .genSalt(10)
-    .then((salt) => bcrypt.hash(this.password, salt))
-    .then((hash) => {
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) return next(err);
+
+    bcrypt.hash(this.password, salt, (err, hash) => {
+      if (err) return next(err);
       this.password = hash;
-      next();
-    })
-    .catch((err) => next(err));
+      return next();
+    });
+  });
 });
 
-userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(
+  email,
+  password
+) {
   return this.findOne({ email })
     .select("+password")
     .then((user) => {
