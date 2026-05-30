@@ -10,17 +10,6 @@ const {
   NOT_FOUND,
 } = require("../utils/errors");
 
-const getUsers = (req, res) => {
-  User.find({})
-    .then((users) => res.send(users))
-    .catch((err) => {
-      console.error(err);
-      res
-        .status(SERVER_ERROR)
-        .send({ message: "An error has occurred on the server." });
-    });
-};
-
 const createUser = (req, res) => {
   const { name, avatar, email, password } = req.body;
 
@@ -73,7 +62,16 @@ const login = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(UNAUTHORIZED).send({ message: "Incorrect email or password" });
+
+      // Only credential errors get 401. Server errors stay 500
+      if (err.message === "Incorrect email or password") {
+        return res
+          .status(UNAUTHORIZED)
+          .send({ message: "Incorrect email or password" });
+      }
+      return res
+        .status(SERVER_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -83,9 +81,15 @@ const getCurrentUser = (req, res) => {
     .then((user) => res.send(user))
     .catch((err) => {
       console.error(err);
-      if (err.name === "CastError" || err.name === "DocumentNotFoundError") {
+
+      if (err.name === "CastError") {
+        return res.status(BAD_REQUEST).send({ message: "Invalid user ID" });
+      }
+
+      if (err.name === "DocumentNotFoundError") {
         return res.status(NOT_FOUND).send({ message: "User not found" });
       }
+
       return res
         .status(SERVER_ERROR)
         .send({ message: "An error has occurred on the server." });
@@ -120,7 +124,6 @@ const updateProfile = (req, res) => {
 };
 
 module.exports = {
-  getUsers,
   createUser,
   login,
   getCurrentUser,
