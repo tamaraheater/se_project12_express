@@ -40,25 +40,23 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Password hashing middleware
-userSchema.pre("save", async function passwordHashing(next) {
+// Password hashing middleware - Non-async version (better for ESLint)
+userSchema.pre("save", function (next) {
   if (!this.isModified("password")) {
     return next();
   }
 
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    return next();
-  } catch (error) {
-    return next(error);
-  }
+  bcrypt
+    .genSalt(10)
+    .then((salt) => bcrypt.hash(this.password, salt))
+    .then((hash) => {
+      this.password = hash;
+      next();
+    })
+    .catch((err) => next(err));
 });
 
-userSchema.statics.findUserByCredentials = function findUserByCredentials(
-  email,
-  password
-) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
   return this.findOne({ email })
     .select("+password")
     .then((user) => {
