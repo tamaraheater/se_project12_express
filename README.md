@@ -7,21 +7,20 @@ When someone makes a request, it travels through routes (which decide where it s
 
 When in the midst of the building process, it does not "feel" that one is accomplishing this, until, once complete, the delivery system is in place.
 
-Features: Sprint 12
+Features: Sprint 12 / 13
 
 - Full CRUD operations for clothing items
-- User ownership validation (only authenticated, authorized and  validated users can only delete their own items)
 - Like / Dislike system using MongoDB array operations
-- Proper error handling (400, 401, 403, 404, 409. 500) with error messaging 
+- Proper error handling (400, 401, 403, 404, 409. 500) with error messaging
 - Input validation using Celebrate/Joi
 - MongoDB schema with validation rules (name, weather, imageUrl, owner, likes)
+
+Features Sprint 13 - #VIDEO: https://www.loom.com/share/ca15cb7d82d24fe5b1775db3b8c4e7ea
+
+- Authentication, Authorization and Validation of users, prevent duplication of emails
+- User ownership validation (only authenticated, authorized and validated users can only delete their own items)
 - Secure ownership checks on delete operations
-
-Features Sprint 13
-- Authentication, Authorization and Validation of users, prevent duplication of emails 
-- Tokenization of Passwords 
-- Time out on tokens
-
+- Tokenization of Passwords with Timeout
 
 ## Technologies Used
 
@@ -30,9 +29,9 @@ Features Sprint 13
 - **MongoDB** + **Mongoose** - Database and ODM
 - **Celebrate + Joi** - Request validation
 - **ESLint** - Code linting highlighting certain errors
-- **bcrypt and Salt** - Transforms passwords into a string of letters and numbers, with a salt (a randome value) to resist to brute force attacks. 
+- **bcrypt and Salt** - Transforms passwords into a string of letters and numbers, with a salt (a randome value) to resist to brute force attacks.
 - **jsonwebtoken** -Tokenization of passwords for validation
--  **CORS** Resource Sharing
+- **CORS** Resource Sharing
 
 ## Running the Project
 
@@ -54,14 +53,14 @@ Future Improvements
 --Advanced search and filtering by weather
 
 Enpoint Testing Passed Badge:
-[![.github/workflows/tests.yml](https://github.com/tamaraheater/se_project12_express/actions/workflows/tests.yml/badge.svg)](https://github.com/tamaraheater/se_project12_express/actions/workflows/tests.yml) 
+[![.github/workflows/tests.yml](https://github.com/tamaraheater/se_project12_express/actions/workflows/tests.yml/badge.svg)](https://github.com/tamaraheater/se_project12_express/actions/workflows/tests.yml)
 
 Postman Report
 May 29, 2026 05:44:06 PM
-Runner	-	1	
+Runner - 1
 6s 465ms
 All tests 102
 Passed 102
 Failed 0
 Skipped 0
-Response time 56 ms	
+Response time 56 ms
