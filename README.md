@@ -52,3 +52,16 @@ This is sprint 12 as docukemted in the "sprint.tx" file. GitHub was used to test
 Future Improvements
 --Implimenting User authentication, authorization & validation with Project Completeion in Sprint 14 & 15.
 --Advanced search and filtering by weather
+
+Enpoint Testing Passed Badge:
+[![.github/workflows/tests.yml](https://github.com/tamaraheater/se_project12_express/actions/workflows/tests.yml/badge.svg)](https://github.com/tamaraheater/se_project12_express/actions/workflows/tests.yml) 
+
+Postman Report
+May 29, 2026 05:44:06 PM
+Runner	-	1	
+6s 465ms
+All tests 102
+Passed 102
+Failed 0
+Skipped 0
+Response time 56 ms	
