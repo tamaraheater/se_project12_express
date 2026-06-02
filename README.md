@@ -2,10 +2,9 @@
 
 The back-end project is focused on creating a server for the WTWR application. You’ll gain a deeper understanding of how to work with databases, set up security and testing, and deploy web applications on a remote machine. The eventual goal is to create a server with an API and user authorization.
 
-A perfect description is “This is a backend API — a little request-handling machine.
-When someone makes a request, it travels through routes (which decide where it should go), then the controllers do the actual work using the models (which talk to the database), and finally it sends back the response.”
+A perfect description is “This is a backend API is a little request-handling machine." When someone makes a request, it travels through routes (which decide where it should go), then the controllers do the actual work using the models (which talk to the database), and finally it sends back the response.”
 
-When in the midst of the building process, it does not "feel" that one is accomplishing this, until, once complete, the delivery system is in place.
+When in the midst of the building process, it does not "feel" that one is accomplishing this, until, once complete, with routing and the response system is in place and you can "see" it come together.
 
 Features: Sprint 12 / 13
 
